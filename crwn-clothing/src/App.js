@@ -1,35 +1,32 @@
-import CategoriesList from "./components/categories-list/categories-list.component";
-const categories = [
-  {
-    title: 'Hats',
-    id: 1,
-    imageUrl: 'https://i.ibb.co/cvpntL1/hats.png'
-  },
-  {
-    title: 'Jackets',
-    id: 2,
-    imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png'
-  },
-  {
-    title: 'Sneakers',
-    id: 3,
-    imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png'
-  },
-  {
-    title: 'Womens',
-    id: 4,
-    imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png'
-  },
-  {
-    title: 'Mens',
-    id: 5,
-    imageUrl: 'https://i.ibb.co/R70vBrQ/men.png'
-  },
-]
-
+import Home from "./routes/home/home.component";
+import { Outlet, Route, Routes } from "react-router-dom";
+const Navigation = () => {
+  return (
+    <div>
+      <div>
+      <h1>I am the navigation bar</h1>
+    </div>
+    <Outlet/>
+    </div>
+  );
+};
+const Shop = () => {
+  return (
+    <div>
+      <h1>Hi, I am the shop page!</h1>
+    </div>
+  );
+};
 const  App = ()=> {
   return (
-    <CategoriesList categories={categories}/>
+    <Routes>
+      <Route path="/" element={<Navigation />}> 
+        <Route index element={<Home />}/>
+        <Route path="shop" element={<Shop />}/>
+      </Route>
+
+    </Routes>
+    
   );
 }
 export default App;
