@@ -7,7 +7,6 @@ import {
 import FormInput from "../form-input/form-input.component";
 import "./sign-in-form.styles.scss";
 import Button from "../button/button.component";
-import { UserContext } from "../../contexts/user.context";
 const formFields = {
   email: "",
   password: "",
@@ -16,7 +15,6 @@ const formFields = {
 const SignInForm = () => {
   const [formValues, setFormValues] = useState(formFields);
   const { email, password } = formValues;
-  const { setCurrentUser } = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormValues(formFields);
@@ -25,7 +23,6 @@ const SignInForm = () => {
     event.preventDefault();
     try {
       const {user} = await signInAuthUserWithEmailAndPassword(email, password);
-      setCurrentUser(user);
       resetFormFields();
     } catch (error) {
       if(error.code==="auth/invalid-credential"){
@@ -41,8 +38,8 @@ const SignInForm = () => {
     setFormValues({ ...formValues, [name]: value });
   };
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
+    
   };
   return (
     <div class="sign-up-container">
