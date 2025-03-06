@@ -6,6 +6,7 @@ import {
 import './sign-up-form.styles.scss';
 import FormInput from "../form-input/form-input.component"
 import Button from "../button/button.component";
+import { BUTTON_TYPE_CLASSES } from "../button/button.component";
 const formFields = {
   displayName: "",
   email: "",
@@ -82,7 +83,7 @@ const SignUpForm = () => {
           value={confirmPassword}
           required
         />
-        <Button type="submit" >Sign Up</Button>
+        <Button buttonType={BUTTON_TYPE_CLASSES.base } type="submit" >Sign Up</Button>
       </form>
     </div>
   );

@@ -1,4 +1,4 @@
-import './button.styles.scss'
+import{ BaseButton, GoogleSignInButton, InveretedButton} from  './button.styles'
 export const BUTTON_TYPE_CLASSES = {
   base: "base",
   google: "google-sign-in",

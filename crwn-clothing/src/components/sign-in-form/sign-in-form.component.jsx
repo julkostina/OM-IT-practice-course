@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import {BUTTON_TYPE_CLASSES} from '../button/button.component';
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
@@ -63,8 +64,8 @@ const SignInForm = () => {
           required
         />
         <div className="buttons-container">
-        <Button type="submit">Sign In</Button>
-        <Button  buttonType='google' type="button" onClick={signInWithGoogle}>Google Sign In</Button>
+        <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">Sign In</Button>
+        <Button  buttonType={BUTTON_TYPE_CLASSES.google} type="button" onClick={signInWithGoogle}>Google Sign In</Button>
         </div>
       </form>
     </div>
