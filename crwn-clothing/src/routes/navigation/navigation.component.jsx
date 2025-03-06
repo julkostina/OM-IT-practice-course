@@ -3,6 +3,7 @@ import { Fragment, useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import {NavLink, NavLinksContainer, NavigationContainer, LogoContainer} from "./navigation.styles";
+
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
@@ -21,9 +22,9 @@ const Navigation = () => {
             Shop
           </NavLink>
           {currentUser ? (
-            <span className="nav-link" onClick={signOutUser}>
+            <NavLink as="span"  onClick={signOutUser}>
               SIGN OUT
-            </span>
+            </NavLink>
           ) : (
             <NavLink to="/auth">
               Sign in
