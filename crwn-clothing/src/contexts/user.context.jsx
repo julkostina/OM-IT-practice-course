@@ -38,15 +38,7 @@ export const UserProvider = ({children}) => {
         dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
     }
      const value  = {currentUser, setCurrentUser};
-     useEffect(()=>{
-        const unsubscribe  = onAuthStateChangedListener((user)=>{
-            if(user){
-                createUserDocumentFromAuth(user);
-            }
-            setCurrentUser(user);
-        })
-        return unsubscribe;
-     },[])
+    
     return (
         <UserContext.Provider value={value}>
             {children}
