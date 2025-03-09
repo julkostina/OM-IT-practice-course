@@ -5,8 +5,8 @@ const DirectoryItem = ({ category }) => {
     const navigate = useNavigate();
     const onNavigateHandler = () => navigate(route);
     return (
-      <DirectoryItemContainer onclick={onNavigateHandler}>
-        <BackgroundImage imageUrl={imageUrl}
+      <DirectoryItemContainer onClick={onNavigateHandler}>
+        <BackgroundImage imageurl={imageUrl}
         />
         <Body>
           <h2>{title}</h2>
