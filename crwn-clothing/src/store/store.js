@@ -1,5 +1,6 @@
-import {compose, legacy_createStore as createStore , applyMiddleware} from 'redux';
-// import logger from 'redux-logger';
+// import {compose, legacy_createStore as createStore , applyMiddleware} from 'redux';
+import { configureStore } from "@reduxjs/toolkit";
+import logger from 'redux-logger';
 import { rootReducer } from './root-reducer';
 
 const loggerMiddleWare = (store)=>(next)=>(action)=>{
@@ -14,5 +15,8 @@ const loggerMiddleWare = (store)=>(next)=>(action)=>{
 }
 const middleWares = [loggerMiddleWare];
 
-const composedEnhancers = compose(applyMiddleware(...middleWares));
-export const store  = createStore(rootReducer, undefined, composedEnhancers);
+// const composedEnhancers = compose(applyMiddleware(...middleWares));
+export const store  = configureStore({
+  reducer: rootReducer,
+  // middleWare: middleWares
+})
