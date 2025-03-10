@@ -6,7 +6,7 @@ import Authentication from "./routes/authentication/authentication.component";
 import Shop from "./routes/shop/shop.component";
 import { useEffect } from "react";
 import Checkout from "./routes/checkout/checkout.component";
-import { setCurrentUser } from "./store/user/use.action";
+import { setCurrentUser } from "./store/user/user.reducer";
 import {onAuthStateChangedListener, createUserDocumentFromAuth} from './utils/firebase/firebase.utils';
 const  App = ()=> { 
   const dispatch = useDispatch();
@@ -15,6 +15,7 @@ const  App = ()=> {
         if(user){
             createUserDocumentFromAuth(user);
         }
+        console.log(user);
         dispatch(setCurrentUser(user));
     })
     return unsubscribe;
