@@ -16,9 +16,10 @@ import { rootReducer } from './root-reducer';
 const middleWares = [logger];
 
 // const composedEnhancers = compose(applyMiddleware(...middleWares));
-export const store  = configureStore({
+export const store = configureStore({
   reducer: rootReducer,
-  middleWare: (getDefaultMiddleWare) => getDefaultMiddleWare({
-    serializableCheck: false,
-  })
-})
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(middleWares),
+});
