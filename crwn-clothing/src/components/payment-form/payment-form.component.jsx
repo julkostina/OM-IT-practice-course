@@ -1,10 +1,25 @@
-import { CardElement } from "@stripe/react-stripe-js";
-
-import Button, {BUTTON_TYPE_CLASSES}from "../button/button.component";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { PaymentFormCOnatiner, FormContainer } from "./payment-form.styles";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 
 const PaymentForm = () => {
-    return(<div>
-        <CardElement/>
+  const elements = useElements();
+  const stripe = useStripe();
+  const paymentHandler = async (event) => {
+    event.preventDefault();
+    if (!stripe || !elements) {
+      return;
+    }
+    
+  };
+  return (
+    <PaymentFormCOnatiner>
+      <FormContainer>
+        <h2>Credit Card Payment:</h2>
+        <CardElement />
         <Button buttonType={BUTTON_TYPE_CLASSES.inverted}>Pay Now</Button>
-    </div>)}
+      </FormContainer>
+    </PaymentFormCOnatiner>
+  );
+};
 export default PaymentForm;
