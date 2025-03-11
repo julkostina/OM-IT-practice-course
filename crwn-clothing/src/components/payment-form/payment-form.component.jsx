@@ -10,10 +10,34 @@ const PaymentForm = () => {
     if (!stripe || !elements) {
       return;
     }
-    
+    const response = await fetch("/.netlify/functions/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: 10000 }),
+    }).then(res=> res.json());
+    console.log(response);
+    const clientSecret = response.clientSecret;
+    const paymentResult = await stripe.confirmCardPayment(clientSecret, {
+    payment_method:{
+        card: elements.getElement(CardElement),
+        billing_details:{
+            name: "Jenny Rosen"
+    },
+    }});
+    if (paymentResult.error) {
+        
+      alert("Error",paymentResult.error);
+    }
+    else{
+        if(paymentResult.paymentIntent.status === "succeeded"){
+            alert("Payment Successfull");
+        }
+    }
   };
   return (
-    <PaymentFormCOnatiner>
+    <PaymentFormCOnatiner  onSubmit={paymentHandler}>
       <FormContainer>
         <h2>Credit Card Payment:</h2>
         <CardElement />
