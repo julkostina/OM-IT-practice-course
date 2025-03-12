@@ -1,25 +1,39 @@
-import { useParams } from "react-router-dom";
-import "./category.styles.scss";
-import { useContext, useState, useEffect,Fragment } from "react";
-import { CategoriesContext } from "../../contexts/categories.context";
-import ProductCard from "../../components/product-card/product-card";
+import { useContext, useState, useEffect, Fragment } from 'react';
+import { useParams } from 'react-router-dom';
+
+import ProductCard from '../../components/product-card/product-card';
+import Spinner from '../../components/spinner/spinner.component';
+
+import { CategoriesContext } from '../../contexts/categories.context';
+
+import { CategoryContainer, Title } from './category.styles';
 
 const Category = () => {
   const { category } = useParams();
-  const { categoriesMap } = useContext(CategoriesContext);
+  const { categoriesMap, loading } = useContext(CategoriesContext);
   const [products, setProducts] = useState(categoriesMap[category]);
+
   useEffect(() => {
     setProducts(categoriesMap[category]);
   }, [category, categoriesMap]);
+
   return (
     <Fragment>
-    <h2 className="category-title">{category.toLocaleUpperCase()}</h2>
-    <div className="category-container-body">
-      {products&&products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
-    </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Fragment>
+          <Title>{category.toUpperCase()}</Title>
+          <CategoryContainer>
+            {products &&
+              products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+          </CategoryContainer>
+        </Fragment>
+      )}
     </Fragment>
   );
 };
+
 export default Category;
