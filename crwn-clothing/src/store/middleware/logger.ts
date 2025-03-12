@@ -1,4 +1,7 @@
-const loggerMiddleWare = (store)=>(next)=>(action)=>{
+import { Middleware } from "redux";
+import { RootState } from "../store";
+import { AnyAction } from "redux";
+export const loggerMiddleWare:Middleware<{},RootState> = (store)=>(next)=>(action: AnyAction)=>{
     if(!action.type){
         return next(action);
     }
