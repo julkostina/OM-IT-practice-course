@@ -4,9 +4,11 @@ display: flex;
 flex-wrap: wrap;
 justify-content: space-between;`
 
-
+type BackgroundImageProps = {
+    imageUrl: string
+}
   
-export const BackgroundImage = styled.div` width: 100%;
+export const BackgroundImage = styled.div<BackgroundImageProps>` width: 100%;
 height: 100%;
 background-size: cover;
 background-position: center;

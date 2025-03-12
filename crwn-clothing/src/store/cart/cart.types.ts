@@ -6,6 +6,6 @@ export enum CART_ACTION_TYPES {
     'SET_CART_COUNT' = 'cart/SET_CART_COUNT'
   }
   
-export type CartItem = CategoryItem & {
+export type TCartItem = CategoryItem & {
    quantity: number
 }
