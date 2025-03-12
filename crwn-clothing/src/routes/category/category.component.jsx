@@ -1,64 +1,39 @@
-import { useParams } from "react-router-dom";
-import "./category.styles.scss";
-import React from "react";
-import {  useState,Fragment } from "react";
-import ProductCard from "../../components/product-card/product-card";
-import {gql, useQuery, useMutation} from "@apollo/client";
+import { useContext, useState, useEffect, Fragment } from 'react';
+import { useParams } from 'react-router-dom';
 
-const GET_CATEGORY = gql`
-  query ($title: String) {
-    getCollectionsByTitle(title: $title) {
-      title
-      id
-      items {
-        id
-        name
-        price
-        imageUrl
-      }
-    }
-  }
-`;
+import ProductCard from '../../components/product-card/product-card';
+import Spinner from '../../components/spinner/spinner.component';
 
-const SET_CATEGORY = gql`
-  mutation ($category: category!){
-    addCategory(category: $category){
-      id
-      title
-      items{
-        id
-        name
-        price
-        imageUrl
-      }
-    }
-  }`
+import { CategoriesContext } from '../../contexts/categories.context';
+
+import { CategoryContainer, Title } from './category.styles';
+
 const Category = () => {
   const { category } = useParams();
-  // const [addCategory, {loading, error, data} ] = useMutation(SET_CATEGORY);
-const {loading, error, data} = useQuery(GET_CATEGORY, {
-variables:{
-  title: category
-},
-})
-console.log(data);
-React.useEffect(()=>{
-if(data){
-  const {getCollectionsByTitle:{items}} = data;
-  setProducts(items);
-}
-}, [data, category])
-  const [products, setProducts] = useState([]);
+  const { categoriesMap, loading } = useContext(CategoriesContext);
+  const [products, setProducts] = useState(categoriesMap[category]);
+
+  useEffect(() => {
+    setProducts(categoriesMap[category]);
+  }, [category, categoriesMap]);
 
   return (
     <Fragment>
-    <h2 className="category-title">{category.toLocaleUpperCase()}</h2>
-    <div className="category-container-body">
-      {products&&products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
-    </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Fragment>
+          <Title>{category.toUpperCase()}</Title>
+          <CategoryContainer>
+            {products &&
+              products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+          </CategoryContainer>
+        </Fragment>
+      )}
     </Fragment>
   );
 };
+
 export default Category;
