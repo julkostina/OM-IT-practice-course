@@ -1,13 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, FormEvent, ChangeEvent  } from "react";
 import {BUTTON_TYPE_CLASSES} from '../button/button.component';
-import {
-  signInAuthUserWithEmailAndPassword,
-} from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import {SignUpContainer, ButtonsContainer} from "./sign-in-form.styles";
 import Button from "../button/button.component";
 import { useDispatch } from "react-redux";
-import { googleSignInStart } from "../../store/user/use.action";
+import { emailSignInStart, googleSignInStart } from "../../store/user/use.action";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 const formFields = {
   email: "",
   password: "",
@@ -20,13 +18,13 @@ const SignInForm = () => {
   const resetFormFields = () => {
     setFormValues(formFields);
   };
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const {user} = await signInAuthUserWithEmailAndPassword(email, password);
+      dispatch( emailSignInStart(email, password));
       resetFormFields();
-    } catch (error) {
-      if(error.code==="auth/invalid-credential"){
+    } catch (error ) {
+      if((error as AuthError).code === AuthErrorCodes.INVALID_EMAIL){
         alert("Incorrect credetentials")
       }
       else{
@@ -34,13 +32,12 @@ const SignInForm = () => {
       }
     }
   };
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
   const signInWithGoogle = async () => {
-    dispatch(googleSignInStart(email,password));
-    
+    dispatch(googleSignInStart());
   };
   return (
     <SignUpContainer>
