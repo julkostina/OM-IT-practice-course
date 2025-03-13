@@ -7,13 +7,15 @@ import Shop from "./routes/shop/shop.component";
 import { useEffect } from "react";
 import Checkout from "./routes/checkout/checkout.component";
 import { checkUserSession } from "./store/user/use.action";
+import {GlobalStyle} from './global.styles';
 const  App = ()=> { 
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(checkUserSession())
  },[])
   return (
-    <Routes>
+    <GlobalStyle>
+      <Routes>
       <Route path="/" element={<Navigation />}> 
         <Route index element={<Home />}/>
         <Route path="shop/*" element={<Shop />}/>
@@ -21,6 +23,7 @@ const  App = ()=> {
         <Route path="checkout" element={<Checkout/>}/>
       </Route>
     </Routes>
+    </GlobalStyle>
     
   );
 }
