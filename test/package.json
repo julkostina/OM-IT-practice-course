@@ -5,11 +5,16 @@
   "scripts": {
     "test": "jest --watch *.js"
   },
+  
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
   }
 }
