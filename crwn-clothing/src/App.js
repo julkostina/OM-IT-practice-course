@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { useEffect, lazy, Suspense } from "react";
 import { checkUserSession } from "./store/user/use.action";
-import {Spinner} from "./components/spinner/spinner.component";
+import Spinner from "./components/spinner/spinner.component";
 
 const Home = lazy(()=>import("./routes/home/home.component"));
 const Shop = lazy(()=>import("./routes/shop/shop.component"));
