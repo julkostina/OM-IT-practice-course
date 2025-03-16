@@ -1,6 +1,6 @@
 import {
   compose,
-  legacy_createStore as createStore,
+  createStore,
   applyMiddleware, Middleware
 } from "redux";
 import logger from "redux-logger";
