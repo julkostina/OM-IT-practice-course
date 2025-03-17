@@ -25,20 +25,6 @@ describe("Navigation tests", () => {
     expect(screen.getByText(/sign out/i)).toBeInTheDocument();
     expect(screen.queryByText(/sign in/i)).toBeNull();
   });
-  // test('It should render a Cart Icon with the correct quantity', () => {
-  //     const initialCartItems = [
-  //         { id: 1, name: 'Item A', imageUrl: 'test', price: 10, quantity: 1 },
-  //     ];
-  //     renderWithProviders(<Navigation />, {
-  //         preloadedState: {
-  //             cart: {
-  //                 cartItems: initialCartItems,
-  //             },
-  //         },
-  //     });
-  //     const CartLogo = screen.getByText('1');
-  //     expect(CartLogo).toHaveTextContent('1');
-  // });
   test("It should not render a cart dropdown if isCartOpen is false", () => {
     renderWithProviders(<Navigation />, {
       preloadedState: {
